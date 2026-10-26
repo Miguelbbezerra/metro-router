@@ -1,0 +1,107 @@
+{
+  "name": "São Paulo Metro",
+  "transfer_minutes": 5,
+  "lines": [
+    {
+      "id": "1",
+      "name": "Azul",
+      "color": "#0455A1",
+      "segment_minutes": 2,
+      "stations": [
+        "Tucuruvi",
+        "Parada Inglesa",
+        "Jardim São Paulo-Ayrton Senna",
+        "Santana",
+        "Carandiru",
+        "Portuguesa-Tietê",
+        "Armênia",
+        "Tiradentes",
+        "Luz",
+        "São Bento",
+        "Sé",
+        "Japão-Liberdade",
+        "São Joaquim",
+        "Vergueiro",
+        "Paraíso",
+        "Ana Rosa",
+        "Vila Mariana",
+        "Santa Cruz",
+        "Praça da Árvore",
+        "Saúde",
+        "São Judas",
+        "Conceição",
+        "Jabaquara"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Verde",
+      "color": "#007E5E",
+      "segment_minutes": 2,
+      "stations": [
+        "Vila Madalena",
+        "Sumaré",
+        "Clínicas",
+        "Consolação",
+        "Trianon-Masp",
+        "Brigadeiro",
+        "Paraíso",
+        "Ana Rosa",
+        "Chácara Klabin",
+        "Santos-Imigrantes",
+        "Alto do Ipiranga",
+        "Sacomã",
+        "Tamanduateí",
+        "Vila Prudente"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Vermelha",
+      "color": "#EE372F",
+      "segment_minutes": 2,
+      "stations": [
+        "Palmeiras-Barra Funda",
+        "Marechal Deodoro",
+        "Santa Cecília",
+        "República",
+        "Anhangabaú",
+        "Sé",
+        "Pedro II",
+        "Brás",
+        "Bresser-Mooca",
+        "Belém",
+        "Tatuapé",
+        "Carrão",
+        "Penha",
+        "Vila Matilde",
+        "Guilhermina-Esperança",
+        "Patriarca",
+        "Artur Alvim",
+        "Corinthians-Itaquera"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Amarela",
+      "color": "#FFD400",
+      "segment_minutes": 2.5,
+      "stations": [
+        "Luz",
+        "República",
+        "Higienópolis-Mackenzie",
+        "Paulista",
+        "Oscar Freire",
+        "Fradique Coutinho",
+        "Faria Lima",
+        "Pinheiros",
+        "Butantã",
+        "São Paulo-Morumbi",
+        "Vila Sônia"
+      ]
+    }
+  ],
+  "walkways": [
+    { "from": "Paulista", "to": "Consolação", "minutes": 6 }
+  ]
+}
