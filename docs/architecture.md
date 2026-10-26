@@ -12,9 +12,10 @@ purpose: Architecture design for metro-router
   A São Paulo network ships with the package; users can pass their own file with `--network`.
 - `metro route A B` — fastest route (minutes), counting a penalty for changing lines.
 - `metro route A B --by stops` — route with the fewest stations.
-- Output itinerary as legs ("take Line 1-Blue from Sé to Paraíso, 3 stops") as text or JSON.
+- Output itinerary as legs ("Take Line 1-Azul from Sé, ride 4 stops to Paraíso") as text or JSON.
 - `metro search <prefix>` — autocomplete station names.
-- `metro stations [--line ID]` — alphabetical station listing.
+- `metro stations [--line ID]` — alphabetical station listing (or one line, in order).
+- `metro lines` — list lines with their station counts.
 - `metro check` — validate a network file (every station reachable from every other).
 - Accent- and case-insensitive station names (`se` → `Sé`), with "did you mean?" suggestions on typos.
 
@@ -34,7 +35,7 @@ purpose: Architecture design for metro-router
 | Tool | Purpose | Why |
 |---|---|---|
 | `uv` | Packaging, venv, lockfile | Fast, single tool, reproducible `uv.lock` |
-| `argparse` (stdlib) | CLI parsing | No dependency needed for 4 subcommands |
+| `argparse` (stdlib) | CLI parsing | No dependency needed for 5 subcommands |
 | `json` / `pathlib` / `importlib.resources` (stdlib) | File I/O, bundled data | Stdlib, portable |
 | `logging` (stdlib) | Diagnostics | Standard, controllable via `--verbose` |
 | `pytest`, `pytest-cov` | Tests, coverage | De facto standard |
@@ -53,7 +54,7 @@ purpose: Architecture design for metro-router
 
 - **Pipes & Filters (lightweight):** `load JSON → validate → build Graph → search → segment → format`.
   Each stage is a pure function, which keeps every stage independently testable.
-- **Value Objects:** `Station`, `Edge`, `Leg`, `Itinerary` are frozen dataclasses.
+- **Value Objects:** `Edge`, `Line`, `Hop`, `Leg`, `Itinerary` are frozen dataclasses.
 - **Dependency inversion for algorithms:** graph algorithms take a `neighbors(node)` callable instead
   of a concrete graph class, so the same Dijkstra runs on the station graph or on the
   `(station, line)` state graph used for transfer penalties.
@@ -106,10 +107,10 @@ No database. Static JSON file:
 ```json
 {
   "name": "São Paulo Metro",
-  "transfer_minutes": 4,
-  "lines": [{"id": "1", "name": "Blue", "color": "#0455A1",
+  "transfer_minutes": 5,
+  "lines": [{"id": "1", "name": "Azul", "color": "#0455A1",
              "segment_minutes": 2, "stations": ["Tucuruvi", "..."]}],
-  "walkways": [{"from": "Paulista", "to": "Consolação", "minutes": 5}]
+  "walkways": [{"from": "Paulista", "to": "Consolação", "minutes": 6}]
 }
 ```
 
@@ -125,7 +126,7 @@ official timetable.
 5. **Trie** — insert/starts_with; test: equals filtering a list by `startswith`.
 6. **merge_sort / binary_search** — test: equals `sorted` / `bisect_left`.
 7. **levenshtein** — test: known pairs + symmetry/identity properties.
-8. **segment_runs** — test: groups consecutive equal keys.
+8. **split_runs** — test: groups consecutive equal keys.
 9. **bfs / reachable / dijkstra** — test on small hand-made graphs.
 10. **text.normalize** — test: accents and case removed.
 11. **Graph + network loader** — test: valid file builds graph; invalid files raise `NetworkFileError`.
