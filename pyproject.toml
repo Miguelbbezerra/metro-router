@@ -63,7 +63,7 @@ files = ["src", "tests", "benchmarks"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = ["--strict-markers", "--strict-config", "-ra"]
+addopts = ["--strict-markers", "--strict-config", "-ra", "--import-mode=importlib"]
 
 [tool.coverage.run]
 source = ["metro_router"]
